@@ -1,6 +1,6 @@
 {
   "name": "@pgpm/hello-world",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": "Constructive <developers@constructive.io>",
   "description": "Hello World extension with Row Level Security (RLS) demo",
   "private": true,
