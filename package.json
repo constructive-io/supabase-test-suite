@@ -1,11 +1,11 @@
 {
-  "name": "launchql-extensions",
+  "name": "supabase-test-suite",
   "version": "0.0.1",
-  "author": "launchql <hello@launchql.com>",
+  "author": "Constructive <developers@constructive.io>",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/launchql/extensions"
+    "url": "https://github.com/constructive-io/supabase-test-suite"
   },
   "license": "MIT",
   "engines": {
@@ -14,10 +14,6 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "packageManager": "pnpm@10.12.2",
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "bundle": "pnpm -r bundle",
     "lint": "pnpm -r lint",
