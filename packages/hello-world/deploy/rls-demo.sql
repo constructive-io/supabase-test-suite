@@ -1,5 +1,5 @@
 -- Deploy: rls-demo to pg
--- made with <3 @ launchql.com
+-- made with <3 @ constructive.io
 
 -- Create rls_test schema
 CREATE SCHEMA IF NOT EXISTS rls_test;

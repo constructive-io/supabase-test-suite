@@ -64,17 +64,21 @@ jobs:
           supabase status
           exit 1
 
-      - name: Enable corepack and pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@9 --activate
-          pnpm -v
-          node -v
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
 
       - name: Install
         run: pnpm install
 
-      - name: Install LaunchQL CLI globally
+      - name: Install pgpm CLI globally
         run: npm install -g pgpm
 
       - name: Build
