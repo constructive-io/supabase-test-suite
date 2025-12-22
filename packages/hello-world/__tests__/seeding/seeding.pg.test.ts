@@ -9,7 +9,7 @@ beforeAll(async () => {
     {},
     [
       // load schema and it's dependencies (supabase full schema)
-      seed.launchql(),
+      seed.pgpm(),
 
       // load data from json files
       seed.fn(async ({ pg }) => {
