@@ -35,7 +35,7 @@
     "lerna": "^8.2.3",
     "prettier": "^3.0.2",
     "rimraf": "4.4.1",
-    "supabase-test": "^0.4.2",
+    "supabase-test": "^0.4.10",
     "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"

@@ -8,6 +8,7 @@
       "authenticated": "authenticated",
       "administrator": "service_role",
       "default": "anon"
-    }
+    },
+    "useLocksForRoles": true
   }
 }
