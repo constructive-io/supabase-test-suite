@@ -1,9 +1,15 @@
-import { rmSync } from 'fs';
+import { mkdtempSync, rmSync, writeFileSync } from 'fs';
+import { tmpdir } from 'os';
 import { join } from 'path';
 
-import { bundleFromModule, MigrationBundle } from '@pgpmjs/bundle';
-import { materializeApplyModule, parseApplySpec, readApplySpec } from '@pgpmjs/core';
-import { getConnections, PgTestClient } from 'supabase-test';
+import {
+  materializeApplyModule,
+  parseApplySpec,
+  PgpmPackage,
+  readApplySpec
+} from '@pgpmjs/core';
+import { getEnvOptions } from '@pgpmjs/env';
+import { getConnections, PgTestClient, seed } from 'supabase-test';
 
 // This suite exercises the reverse direction against the vendor stack: the
 // pgpm-shaped (ported) module is transpiled back into the stack's native
@@ -13,27 +19,82 @@ import { getConnections, PgTestClient } from 'supabase-test';
 const suite = process.env.VENDOR_STACK ? describe : describe.skip;
 
 const packagesDir = join(__dirname, '..', '..');
+const vendorAppDir = join(packagesDir, 'vendor-app');
+const portedSpecDir = join(packagesDir, 'vendor-app-ported');
+const supabaseDir = join(packagesDir, '..', '..', 'packages', 'supabase');
 
 let pg: PgTestClient;
-let db: PgTestClient;
 let teardown: () => Promise<void>;
 
-const runBundle = async (client: PgTestClient, bundle: MigrationBundle) => {
-  for (const change of bundle.changes) {
-    if (change.deploy?.sql) await client.any(change.deploy.sql);
-  }
-};
+const outDirs: string[] = [];
 
 suite('pgpm-shaped module transpiled onto the vendor stack', () => {
-  const outDirs: string[] = [];
-
   beforeAll(async () => {
-    ({ pg, db, teardown } = await getConnections());
+    ({ pg, teardown } = await getConnections({}, [
+      // The real vendored fixture deploys first as an ordinary pgpm module,
+      // giving the reverse-transpiled package its native subsystem (and
+      // doubling as a regression check that the fixture still deploys).
+      seed.pgpm(supabaseDir),
 
-    // the test database starts empty — deploy the real vendored fixture
-    // first, giving the reverse-transpiled package its native subsystem
-    // (and doubling as a regression check that the fixture still deploys)
-    await runBundle(pg, bundleFromModule(join(packagesDir, '..', '..', 'packages', 'supabase')));
+      // Round-trip: source → pgpm shape → back to the vendor shape, then deploy
+      // the result as an ordinary module. No provider is deployed — the reverse
+      // module's references target the stack's own auth subsystem.
+      seed.fn(async ({ config }) => {
+        const ported = await materializeApplyModule({
+          sourceDir: vendorAppDir,
+          spec: readApplySpec(portedSpecDir)
+        });
+        outDirs.push(ported.outDir);
+
+        const reverse = parseApplySpec(
+          JSON.stringify({
+            source: 'vendor-app-ported',
+            name: 'vendor-app-native',
+            schemas: { app: 'ported_app' },
+            route: [
+              { fromSchema: 'app_auth', kind: 'table', name: 'users', toSchema: 'auth' },
+              {
+                fromSchema: 'app_auth',
+                kind: 'function',
+                name: 'current_user_id',
+                toSchema: 'auth',
+                toName: 'uid'
+              }
+            ],
+            extensions: { toSchema: 'extensions', from: [null] },
+            // the stack owns auth + the extension schema natively, so the
+            // reverse module pulls in no dependencies of its own
+            requires: []
+          }),
+          '/spec/pgpm.apply.json'
+        );
+        // Materialization writes a bare module (pgpm.plan + .control + scripts)
+        // with no workspace marker, but native deploy resolves its target from a
+        // workspace module map. Wrap the result in a throwaway single-package
+        // workspace so the reverse module deploys through the ordinary path.
+        const wsRoot = mkdtempSync(join(tmpdir(), 'pgpm-native-ws-'));
+        outDirs.push(wsRoot);
+        writeFileSync(
+          join(wsRoot, 'pgpm.json'),
+          JSON.stringify({ packages: ['packages/*'] })
+        );
+
+        await materializeApplyModule({
+          sourceDir: ported.outDir,
+          spec: reverse,
+          outDir: join(wsRoot, 'packages', 'vendor-app-native')
+        });
+
+        const workspace = new PgpmPackage(wsRoot);
+        await workspace.deploy(
+          getEnvOptions({
+            pg: config,
+            deployment: { fast: true, usePlan: true }
+          }),
+          'vendor-app-native'
+        );
+      })
+    ]));
   });
 
   afterAll(async () => {
@@ -41,49 +102,7 @@ suite('pgpm-shaped module transpiled onto the vendor stack', () => {
     await teardown();
   });
 
-  // no per-test transaction hooks here: deploy scripts carry their own
-  // BEGIN/COMMIT, which would break the savepoint-based isolation wrapper
-
   it('rebinds provider objects onto the native subsystem and deploys', async () => {
-    // 1. the pgpm shape: subsystem substituted with the generic provider
-    const ported = await materializeApplyModule({
-      sourceDir: join(packagesDir, 'vendor-app'),
-      spec: readApplySpec(join(packagesDir, 'vendor-app-ported'))
-    });
-    outDirs.push(ported.outDir);
-
-    // 2. back to the vendor shape: provider objects rebound onto the stack's
-    //    own subsystem, bare extension symbols re-qualified, roles translated
-    const reverse = parseApplySpec(
-      JSON.stringify({
-        source: 'vendor-app-ported',
-        name: 'vendor-app-native',
-        schemas: { app: 'ported_app' },
-        route: [
-          { fromSchema: 'app_auth', kind: 'table', name: 'users', toSchema: 'auth' },
-          {
-            fromSchema: 'app_auth',
-            kind: 'function',
-            name: 'current_user_id',
-            toSchema: 'auth',
-            toName: 'uid'
-          }
-        ],
-        extensions: { toSchema: 'extensions', from: [null] },
-        roles: { app_authenticated: 'authenticated' }
-      }),
-      '/spec/pgpm.apply.json'
-    );
-    const native = await materializeApplyModule({
-      sourceDir: ported.outDir,
-      spec: reverse
-    });
-    outDirs.push(native.outDir);
-
-    // 3. deploy against the real stack — the subsystem it targets exists
-    //    natively, so no provider is deployed at all
-    await runBundle(pg, native.bundle);
-
     const schema = await pg.any(
       `SELECT 1 FROM information_schema.schemata WHERE schema_name = 'ported_app'`
     );

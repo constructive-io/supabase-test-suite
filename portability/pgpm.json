@@ -5,7 +5,7 @@
   "db": {
     "roles": {
       "anonymous": "anonymous",
-      "authenticated": "app_authenticated",
+      "authenticated": "authenticated",
       "administrator": "administrator",
       "default": "anonymous"
     }
