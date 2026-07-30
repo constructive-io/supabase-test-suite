@@ -1,11 +1,25 @@
 import { join } from 'path';
 
-import { PgpmPackage } from '@pgpmjs/core';
+import {
+  generateCreateBaseRolesSQL,
+  generateGrantRoleSQL,
+  PgpmPackage
+} from '@pgpmjs/core';
 import { getEnvOptions } from '@pgpmjs/env';
 import { getConnections, PgTestClient, seed } from 'pgsql-test';
 
 const packagesDir = join(__dirname, '..', '..');
 const workspaceRoot = join(packagesDir, '..');
+
+// Standard constructive role names — image-agnostic. The plain postgres-plus
+// image ships no application roles, so the suite provisions them with the same
+// generators `pgpm init` uses (native), rather than image-provided roles.
+const roles = {
+  anonymous: 'anonymous',
+  authenticated: 'authenticated',
+  administrator: 'administrator',
+  default: 'anonymous'
+};
 
 let pg: PgTestClient;
 let db: PgTestClient;
@@ -14,7 +28,23 @@ let teardown: () => Promise<void>;
 let aliceId: string;
 
 beforeAll(async () => {
-  ({ pg, db, teardown } = await getConnections({}, [
+  ({ pg, db, teardown } = await getConnections({ db: { roles } }, [
+    // Base roles via the sanctioned generator (what `pgpm init` runs), then
+    // grant them to the app connection role so transaction-local SET ROLE works
+    // in tests. getConnections' own createUserRole grants these on connect, but
+    // only if they already exist — on a bare image they don't yet, so we create
+    // and (re)grant here.
+    seed.fn(async ({ pg, connect }) => {
+      await pg.any(generateCreateBaseRolesSQL(connect.roles));
+      const appUser = connect.connections.app.user;
+      for (const role of [
+        connect.roles.anonymous,
+        connect.roles.authenticated,
+        connect.roles.administrator
+      ]) {
+        await pg.any(generateGrantRoleSQL(role, appUser));
+      }
+    }),
     // Deploy the apply proxy as an ordinary workspace module. pgpm resolves
     // its declared dependencies from the workspace and deploys them in order:
     // the generic auth-provider module first, its uuid-ossp extension, then the
