@@ -4,6 +4,12 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@pgpmjs/types': file:portability/.tarballs/pgpmjs-types-2.47.0.tgz
+  '@pgpmjs/transform': file:portability/.tarballs/pgpmjs-transform-0.11.1.tgz
+  '@pgpmjs/slice': file:portability/.tarballs/pgpmjs-slice-0.10.2.tgz
+  '@pgpmjs/core': file:portability/.tarballs/pgpmjs-core-7.16.0.tgz
+
 importers:
 
   .:
@@ -66,6 +72,30 @@ importers:
   packages/hello-world: {}
 
   packages/supabase: {}
+
+  portability/packages/portability-tests:
+    dependencies:
+      '@pgpmjs/bundle':
+        specifier: ^0.12.1
+        version: 0.12.1
+      '@pgpmjs/core':
+        specifier: file:../../.tarballs/pgpmjs-core-7.16.0.tgz
+        version: file:portability/.tarballs/pgpmjs-core-7.16.0.tgz
+      '@pgpmjs/slice':
+        specifier: file:../../.tarballs/pgpmjs-slice-0.10.2.tgz
+        version: file:portability/.tarballs/pgpmjs-slice-0.10.2.tgz
+      '@pgpmjs/transform':
+        specifier: file:../../.tarballs/pgpmjs-transform-0.11.1.tgz
+        version: file:portability/.tarballs/pgpmjs-transform-0.11.1.tgz
+      '@pgpmjs/types':
+        specifier: file:../../.tarballs/pgpmjs-types-2.47.0.tgz
+        version: file:portability/.tarballs/pgpmjs-types-2.47.0.tgz
+      pgsql-test:
+        specifier: ^5.8.3
+        version: 5.8.3
+      supabase-test:
+        specifier: ^3.8.3
+        version: 3.8.3
 
 packages:
 
@@ -659,8 +689,9 @@ packages:
   '@pgpmjs/bundle@0.12.1':
     resolution: {integrity: sha512-NQGhUCqFyG2NSe5/XLGwIxGY14hANuO8lWmdac20Ukk6xx44ZlwSqTsXWjVJU/NXTuxtBzkIM+7DwKWfZWYbqw==}
 
-  '@pgpmjs/core@7.16.0':
-    resolution: {integrity: sha512-WI6kcUC1R9mbG2dxxNa0E4PU+KTcYRs8FfQ0luoF7XfNRX2SjYlu+gxB0Ugl3k41ZGElqlU8Hb4XyTFFI1aYPw==}
+  '@pgpmjs/core@file:portability/.tarballs/pgpmjs-core-7.16.0.tgz':
+    resolution: {integrity: sha512-MYFohz8OuAfEqBvgrbRSw6/3dU2j8cFchGP9vuNctTDP8G9PEVYxhNCkwDjHCCcBcjcDflc8pKD3YloG0/1V3Q==, tarball: file:portability/.tarballs/pgpmjs-core-7.16.0.tgz}
+    version: 7.16.0
 
   '@pgpmjs/env@2.39.0':
     resolution: {integrity: sha512-zQrzqtXs/fE5LfbY4iR1fYYqunYJLUey/uHF4+UJmIeKimebzUDa5sKungRI5qp9lsUt7qH6DiJo8sqbOKscdw==}
@@ -671,23 +702,26 @@ packages:
   '@pgpmjs/server-utils@3.23.2':
     resolution: {integrity: sha512-fnh3QZ5jdK5XEs0R4YHJgdlOc/8ADaDFUsGZX99wntakh45hK8T1V3lWwAzDQ49TALcyNhdBeTlKP9/QgdU4uw==}
 
-  '@pgpmjs/slice@0.10.2':
-    resolution: {integrity: sha512-xI4h1SEdNmNZxNkIOj0e6+f2FcZQbQSM22cg54qomI20nhyaz+3lY5dx3LQRFjCbXnO5fH6Mr3aMua7ZeWHygA==}
+  '@pgpmjs/slice@file:portability/.tarballs/pgpmjs-slice-0.10.2.tgz':
+    resolution: {integrity: sha512-Oy6kzX12CmpVN990vipDVdmoBdnakykP/X6fJUoUegxzmunfLHfWGK/9feDNeMykFTnea+cPJGda9FsG/l4/nw==, tarball: file:portability/.tarballs/pgpmjs-slice-0.10.2.tgz}
+    version: 0.10.2
 
-  '@pgpmjs/transform@0.11.1':
-    resolution: {integrity: sha512-APZZTLqoqXOhHWxgam+FRwVdGWIXP5SsoMI7BNXHqxnrkAn29R9hZvuDQ3UyMUd0cCzN8w/ncVDWgbJIXaEnYw==}
+  '@pgpmjs/transform@file:portability/.tarballs/pgpmjs-transform-0.11.1.tgz':
+    resolution: {integrity: sha512-NoO3h27d42qe88MnPyuHfvPPQhW7vTzBYYb+RNWdDUX+iMp7i8AFeO7vUqwJQhby4blayPp7VgJI8F2ugG/FLQ==, tarball: file:portability/.tarballs/pgpmjs-transform-0.11.1.tgz}
+    version: 0.11.1
 
   '@pgpmjs/traverse@0.9.3':
     resolution: {integrity: sha512-Mp4dPz8aJFmSw/K5s+pc/oJW5NiloHEznvPxUVcWu5E7ysZlxhgIuDJJkHGI7Nx9Ypl0WpSaBWzcdDzW1+jPMA==}
 
-  '@pgpmjs/types@2.47.0':
-    resolution: {integrity: sha512-MTIH5u/5M5E93xDzjDi7jgKj8rqVpwd13EP+gQJfMDdl+GQ6OUrJjruOe0Y5PzXs1iZg6SKY3/Y96yXaDAooVg==}
+  '@pgpmjs/types@file:portability/.tarballs/pgpmjs-types-2.47.0.tgz':
+    resolution: {integrity: sha512-/E/F6jP09YWgSqM6Iv8v7AAzQOs1MjYI3uJSHfepziFWNoYt5k5Pus0ViF0gr9R4dNMfxEnyeFi8wIHIPW/K5g==, tarball: file:portability/.tarballs/pgpmjs-types-2.47.0.tgz}
+    version: 2.47.0
 
   '@pgsql/quotes@18.1.0':
     resolution: {integrity: sha512-wZcMP1QHiQbWWKOw4nfvZ74xUSz/9jqeSUXVnoR1saI5M0D+iYbiuOlfNDyYmziLwgEkCuSJLZK1dZ+eQCwgAA==}
 
-  '@pgsql/transform@18.6.0':
-    resolution: {integrity: sha512-phziJArEx5pDcTNvP1NIpZYx19ZKLQz3qzgAybmVG/lEG+ybk1yWwnGzW4KIKq39J9eek6BK5HpwDaNazY90NQ==}
+  '@pgsql/transform@18.7.0':
+    resolution: {integrity: sha512-KjG/vk2X+ST/OgKEnR/Z/ldbE7S1XggNZmYyfFoRVRXTlwtPjoVOBxceF/fvt8sA7w+ydD9KppervlS91fEyFw==}
 
   '@pgsql/traverse@18.3.0':
     resolution: {integrity: sha512-5DOD9OExBT8wvejdQavnpWlI9625w2j3Mi+ecvCUxaXz/R+Lesj3lsp8Bp7gmUFEOJ7hbhDr0zCzfJkjPHjsJw==}
@@ -4728,23 +4762,23 @@ snapshots:
   '@pgpmjs/ast@0.9.3':
     dependencies:
       '@pgpmjs/env': 2.39.0
-      '@pgpmjs/types': 2.47.0
+      '@pgpmjs/types': file:portability/.tarballs/pgpmjs-types-2.47.0.tgz
 
   '@pgpmjs/bundle@0.12.1':
     dependencies:
       '@pgpmjs/ast': 0.9.3
       '@pgpmjs/traverse': 0.9.3
 
-  '@pgpmjs/core@7.16.0':
+  '@pgpmjs/core@file:portability/.tarballs/pgpmjs-core-7.16.0.tgz':
     dependencies:
       '@pgpmjs/ast': 0.9.3
       '@pgpmjs/bundle': 0.12.1
       '@pgpmjs/env': 2.39.0
       '@pgpmjs/logger': 2.22.0
       '@pgpmjs/server-utils': 3.23.2
-      '@pgpmjs/slice': 0.10.2
-      '@pgpmjs/transform': 0.11.1
-      '@pgpmjs/types': 2.47.0
+      '@pgpmjs/slice': file:portability/.tarballs/pgpmjs-slice-0.10.2.tgz
+      '@pgpmjs/transform': file:portability/.tarballs/pgpmjs-transform-0.11.1.tgz
+      '@pgpmjs/types': file:portability/.tarballs/pgpmjs-types-2.47.0.tgz
       csv-to-pg: 4.8.0
       genomic: 5.6.2
       glob: 13.0.6
@@ -4762,7 +4796,7 @@ snapshots:
   '@pgpmjs/env@2.39.0':
     dependencies:
       12factor-env: 1.25.0
-      '@pgpmjs/types': 2.47.0
+      '@pgpmjs/types': file:portability/.tarballs/pgpmjs-types-2.47.0.tgz
       deepmerge: 4.3.1
 
   '@pgpmjs/logger@2.22.0':
@@ -4772,25 +4806,25 @@ snapshots:
   '@pgpmjs/server-utils@3.23.2':
     dependencies:
       '@pgpmjs/logger': 2.22.0
-      '@pgpmjs/types': 2.47.0
+      '@pgpmjs/types': file:portability/.tarballs/pgpmjs-types-2.47.0.tgz
       cors: 2.8.6
       express: 5.2.1
       lru-cache: 11.5.2
     transitivePeerDependencies:
       - supports-color
 
-  '@pgpmjs/slice@0.10.2':
+  '@pgpmjs/slice@file:portability/.tarballs/pgpmjs-slice-0.10.2.tgz':
     dependencies:
       '@pgpmjs/ast': 0.9.3
-      '@pgpmjs/transform': 0.11.1
+      '@pgpmjs/transform': file:portability/.tarballs/pgpmjs-transform-0.11.1.tgz
       minimatch: 10.2.6
       plpgsql-parser: 18.2.1
     transitivePeerDependencies:
       - supports-color
 
-  '@pgpmjs/transform@0.11.1':
+  '@pgpmjs/transform@file:portability/.tarballs/pgpmjs-transform-0.11.1.tgz':
     dependencies:
-      '@pgsql/transform': 18.6.0
+      '@pgsql/transform': 18.7.0
       plpgsql-parser: 18.2.1
     transitivePeerDependencies:
       - supports-color
@@ -4799,14 +4833,14 @@ snapshots:
     dependencies:
       '@pgpmjs/ast': 0.9.3
 
-  '@pgpmjs/types@2.47.0':
+  '@pgpmjs/types@file:portability/.tarballs/pgpmjs-types-2.47.0.tgz':
     dependencies:
       '@constructive-io/errors': 0.7.1
       pg-env: 1.26.0
 
   '@pgsql/quotes@18.1.0': {}
 
-  '@pgsql/transform@18.6.0':
+  '@pgsql/transform@18.7.0':
     dependencies:
       '@pgsql/quotes': 18.1.0
       '@pgsql/traverse': 18.3.0
@@ -7469,7 +7503,7 @@ snapshots:
     dependencies:
       12factor-env: 1.25.0
       '@pgpmjs/logger': 2.22.0
-      '@pgpmjs/types': 2.47.0
+      '@pgpmjs/types': file:portability/.tarballs/pgpmjs-types-2.47.0.tgz
       lru-cache: 11.5.2
       pg: 8.22.0
       pg-env: 1.26.0
@@ -7541,9 +7575,9 @@ snapshots:
 
   pgsql-client@4.8.3:
     dependencies:
-      '@pgpmjs/core': 7.16.0
+      '@pgpmjs/core': file:portability/.tarballs/pgpmjs-core-7.16.0.tgz
       '@pgpmjs/logger': 2.22.0
-      '@pgpmjs/types': 2.47.0
+      '@pgpmjs/types': file:portability/.tarballs/pgpmjs-types-2.47.0.tgz
       pg: 8.22.0
       pg-env: 1.26.0
     transitivePeerDependencies:
@@ -7563,7 +7597,7 @@ snapshots:
 
   pgsql-seed@3.8.3:
     dependencies:
-      '@pgpmjs/core': 7.16.0
+      '@pgpmjs/core': file:portability/.tarballs/pgpmjs-core-7.16.0.tgz
       '@pgpmjs/env': 2.39.0
       pg: 8.22.0
       pg-env: 1.26.0
@@ -7577,7 +7611,7 @@ snapshots:
       '@pgpmjs/env': 2.39.0
       '@pgpmjs/logger': 2.22.0
       '@pgpmjs/server-utils': 3.23.2
-      '@pgpmjs/types': 2.47.0
+      '@pgpmjs/types': file:portability/.tarballs/pgpmjs-types-2.47.0.tgz
       pg: 8.22.0
       pg-cache: 3.23.2
       pg-env: 1.26.0
@@ -8024,7 +8058,7 @@ snapshots:
 
   supabase-test@3.8.3:
     dependencies:
-      '@pgpmjs/types': 2.47.0
+      '@pgpmjs/types': file:portability/.tarballs/pgpmjs-types-2.47.0.tgz
       deepmerge: 4.3.1
       pg-env: 1.26.0
       pgsql-test: 5.8.3

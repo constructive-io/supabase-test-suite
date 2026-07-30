@@ -39,5 +39,13 @@
     "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@pgpmjs/types": "file:portability/.tarballs/pgpmjs-types-2.47.0.tgz",
+      "@pgpmjs/transform": "file:portability/.tarballs/pgpmjs-transform-0.11.1.tgz",
+      "@pgpmjs/slice": "file:portability/.tarballs/pgpmjs-slice-0.10.2.tgz",
+      "@pgpmjs/core": "file:portability/.tarballs/pgpmjs-core-7.16.0.tgz"
+    }
   }
 }
