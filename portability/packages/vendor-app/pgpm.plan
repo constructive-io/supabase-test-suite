@@ -1,0 +1,10 @@
+%syntax-version=1.0.0
+%project=vendor-app
+%uri=vendor-app
+
+schemas/auth/schema 2024-01-01T00:00:00Z Dev <dev@example.com> # add auth schema
+schemas/auth/tables/users/table [schemas/auth/schema] 2024-01-01T00:00:01Z Dev <dev@example.com> # add auth users
+schemas/auth/procedures/uid [schemas/auth/schema] 2024-01-01T00:00:02Z Dev <dev@example.com> # add uid
+schemas/app/schema 2024-01-01T00:00:03Z Dev <dev@example.com> # add app schema
+schemas/app/tables/documents/table [schemas/app/schema schemas/auth/tables/users/table] 2024-01-01T00:00:04Z Dev <dev@example.com> # add documents table
+schemas/app/policies/documents_owner [schemas/app/tables/documents/table schemas/auth/procedures/uid] 2024-01-01T00:00:05Z Dev <dev@example.com> # add documents policy

@@ -1,0 +1,114 @@
+name: Portability tests
+on:
+  push:
+  pull_request:
+    types: [opened, synchronized, reopened]
+  workflow_dispatch:
+
+jobs:
+  # pgpm-style workflow: plain PostgreSQL, the substituted (pgpm-shaped)
+  # package deployed on top of a provider module — no vendor stack at all.
+  pgpm-image:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: ghcr.io/constructive-io/docker/postgres-plus:18
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 3s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: password
+
+    steps:
+      - name: Configure Git (for tests)
+        run: |
+          git config --global user.name "CI Test User"
+          git config --global user.email "ci@example.com"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install
+        run: pnpm install
+
+      - name: Test portability
+        run: cd ./portability/packages/portability-tests && pnpm test
+
+  # vendor-style workflow: the same stack as ci.yml, additionally running the
+  # reverse direction (pgpm shape transpiled back onto the native subsystem).
+  vendor-image:
+    runs-on: ubuntu-latest
+
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 54322
+      PGUSER: supabase_admin
+      PGPASSWORD: postgres
+      VENDOR_STACK: '1'
+
+    steps:
+      - name: Configure Git (for tests)
+        run: |
+          git config --global user.name "CI Test User"
+          git config --global user.email "ci@example.com"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Start Supabase stack
+        run: supabase start
+
+      - name: Wait for Postgres
+        run: |
+          for i in {1..60}; do
+            if pg_isready -h 127.0.0.1 -p 54322 -U postgres; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "postgres not ready in time"
+          exit 1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install
+        run: pnpm install
+
+      - name: Test portability
+        run: cd ./portability/packages/portability-tests && pnpm test
