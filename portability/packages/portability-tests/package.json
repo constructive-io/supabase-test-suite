@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@pgpmjs/core": "7.17.0",
+    "@pgpmjs/env": "2.39.1",
     "@pgpmjs/slice": "0.11.0",
     "@pgpmjs/transform": "0.12.0",
     "@pgpmjs/types": "2.48.0",

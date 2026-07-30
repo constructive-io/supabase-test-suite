@@ -14,6 +14,12 @@
   "publishConfig": {
     "access": "restricted"
   },
+  "pnpm": {
+    "overrides": {
+      "@pgpmjs/bundle": "file:./portability/.tarballs/pgpmjs-bundle-0.12.2.tgz",
+      "@pgpmjs/core": "file:./portability/.tarballs/pgpmjs-core-7.17.0.tgz"
+    }
+  },
   "scripts": {
     "bundle": "pnpm -r bundle",
     "lint": "pnpm -r lint",

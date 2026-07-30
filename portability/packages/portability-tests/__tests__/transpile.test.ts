@@ -1,24 +1,57 @@
 import { rmSync } from 'fs';
 import { join } from 'path';
 
-import { materializeApplyModule, parseApplySpec, readApplySpec } from '@pgpmjs/core';
+import { materializeApplyModule, parseApplySpec } from '@pgpmjs/core';
 
 const packagesDir = join(__dirname, '..', '..');
 const sourceDir = join(packagesDir, 'vendor-app');
 
-describe('source shape → pgpm shape (subsystem substitution)', () => {
-  it('excludes the auth subsystem, rebinds survivors, de-qualifies extensions, translates roles', async () => {
-    const spec = readApplySpec(join(packagesDir, 'vendor-app-ported'));
-    const { bundle, outDir } = await materializeApplyModule({ sourceDir, spec });
-    try {
-      // the excluded subsystem's changes become emptied tombstones
-      const users = bundle.changes.find(c => c.name === 'schemas/auth/tables/users/table')!;
-      expect(users.deploy!.sql).not.toMatch(/CREATE TABLE/i);
-      expect(users.revert!.sql).not.toMatch(/DROP TABLE/i);
-      expect(users.verify!.sql).not.toMatch(/auth\.users/);
+// The full set of transforms, expressed inline so this capability demo is
+// independent of the deployable on-disk spec (which uses native standard
+// roles). Here we additionally translate the role to exercise role routing.
+const portedSpec = () =>
+  parseApplySpec(
+    JSON.stringify({
+      source: 'vendor-app',
+      name: 'vendor-app-ported',
+      exclude: { schemas: ['auth'] },
+      route: [
+        { fromSchema: 'auth', kind: 'table', name: 'users', toSchema: 'app_auth' },
+        {
+          fromSchema: 'auth',
+          kind: 'function',
+          name: 'uid',
+          toSchema: 'app_auth',
+          toName: 'current_user_id'
+        }
+      ],
+      extensions: { toSchema: null, from: ['extensions'] },
+      roles: { authenticated: 'app_authenticated' },
+      requires: ['auth-provider', 'uuid-ossp']
+    }),
+    '/spec/pgpm.apply.json'
+  );
 
-      const uid = bundle.changes.find(c => c.name === 'schemas/auth/procedures/uid')!;
-      expect(uid.deploy!.sql).not.toMatch(/CREATE FUNCTION/i);
+describe('source shape → pgpm shape (subsystem substitution)', () => {
+  it('drops the auth subsystem, rebinds survivors, de-qualifies extensions, translates roles', async () => {
+    const { bundle, outDir } = await materializeApplyModule({
+      sourceDir,
+      spec: portedSpec()
+    });
+    try {
+      // the excluded subsystem's changes are dropped from the artifact
+      // entirely — not emitted as empty tombstones (those collide on the
+      // deploy ledger's script-hash uniqueness)
+      expect(
+        bundle.changes.find(c => c.name === 'schemas/auth/tables/users/table')
+      ).toBeUndefined();
+      expect(
+        bundle.changes.find(c => c.name === 'schemas/auth/procedures/uid')
+      ).toBeUndefined();
+      expect(
+        bundle.changes.find(c => c.name === 'schemas/auth/schema')
+      ).toBeUndefined();
+      expect(bundle.plan).not.toMatch(/schemas\/auth\//);
 
       // FK rebound onto the provider's users table
       const documents = bundle.changes.find(
@@ -65,8 +98,7 @@ describe('source shape → pgpm shape (subsystem substitution)', () => {
 describe('pgpm shape → source shape (reverse direction)', () => {
   it('routes provider objects back into the subsystem shape and re-qualifies extensions', async () => {
     // start from the ported (pgpm-shaped) output and transpile it back
-    const spec = readApplySpec(join(packagesDir, 'vendor-app-ported'));
-    const ported = await materializeApplyModule({ sourceDir, spec });
+    const ported = await materializeApplyModule({ sourceDir, spec: portedSpec() });
     try {
       const reverse = parseApplySpec(
         JSON.stringify({

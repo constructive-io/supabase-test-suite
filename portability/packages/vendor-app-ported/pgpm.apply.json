@@ -22,8 +22,5 @@
     "toSchema": null,
     "from": ["extensions"]
   },
-  "roles": {
-    "authenticated": "app_authenticated"
-  },
-  "requires": ["auth-provider"]
+  "requires": ["auth-provider", "uuid-ossp"]
 }

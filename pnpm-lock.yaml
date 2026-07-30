@@ -4,6 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@pgpmjs/bundle': file:./portability/.tarballs/pgpmjs-bundle-0.12.2.tgz
+  '@pgpmjs/core': file:./portability/.tarballs/pgpmjs-core-7.17.0.tgz
+
 importers:
 
   .:
@@ -70,11 +74,14 @@ importers:
   portability/packages/portability-tests:
     dependencies:
       '@pgpmjs/bundle':
-        specifier: ^0.12.2
-        version: 0.12.2
+        specifier: file:../../.tarballs/pgpmjs-bundle-0.12.2.tgz
+        version: file:portability/.tarballs/pgpmjs-bundle-0.12.2.tgz
       '@pgpmjs/core':
-        specifier: 7.17.0
-        version: 7.17.0
+        specifier: file:../../.tarballs/pgpmjs-core-7.17.0.tgz
+        version: file:portability/.tarballs/pgpmjs-core-7.17.0.tgz
+      '@pgpmjs/env':
+        specifier: 2.39.1
+        version: 2.39.1
       '@pgpmjs/slice':
         specifier: 0.11.0
         version: 0.11.0
@@ -680,11 +687,13 @@ packages:
   '@pgpmjs/ast@0.9.4':
     resolution: {integrity: sha512-TZwmqRVxiIg2y/NKCL3BbjjdqfIprX5Q+f4IJNcdFTuUUFbDY7NzrYCFZ6Kjf6/EC8Bkj0/Hfa7cPZCoXvYwQg==}
 
-  '@pgpmjs/bundle@0.12.2':
-    resolution: {integrity: sha512-mVNlkNGG1AS9/+0NS8MU9sM2wTPxPXMdSckjo/Xy8uukJoOGjjpbdcpRVnjh0EMT9CmwSoIIj9jt5mgywjceew==}
+  '@pgpmjs/bundle@file:portability/.tarballs/pgpmjs-bundle-0.12.2.tgz':
+    resolution: {integrity: sha512-x7y3vTRVY6Cx9d1Cs/PeFtzBxgEH9C7pLbspk1eFB4qcCeCXsJS9LKdpzDBbmTwmGXO2gehatmi6jMEoVv1bKA==, tarball: file:portability/.tarballs/pgpmjs-bundle-0.12.2.tgz}
+    version: 0.12.2
 
-  '@pgpmjs/core@7.17.0':
-    resolution: {integrity: sha512-B6hdtd+oRpJtX7PpAC6aw8e5707wgOsOKeAjcbdUeDghqE5PNaVakp3TIJ+Uj+pjhK5Bc1Kj9Ojk327CMBBbiw==}
+  '@pgpmjs/core@file:portability/.tarballs/pgpmjs-core-7.17.0.tgz':
+    resolution: {integrity: sha512-J+SjjvX/oHbDOPWGguCDUdbSTNsL9ct4JAomqSR5hcJrsqPIwUHR4mpyTN1H3BXWiNTwSvcG+2v3tAd68RTPHA==, tarball: file:portability/.tarballs/pgpmjs-core-7.17.0.tgz}
+    version: 7.17.0
 
   '@pgpmjs/env@2.39.1':
     resolution: {integrity: sha512-ZpuyB1FIcvJwCXCxEKlbU5GPFlSaBIitNRm13lhJSlOvWQIjnfO7U3jr46poq/9OTNeh2r8d7/3VEh7WzJJSmQ==}
@@ -4754,15 +4763,15 @@ snapshots:
       '@pgpmjs/env': 2.39.1
       '@pgpmjs/types': 2.48.0
 
-  '@pgpmjs/bundle@0.12.2':
+  '@pgpmjs/bundle@file:portability/.tarballs/pgpmjs-bundle-0.12.2.tgz':
     dependencies:
       '@pgpmjs/ast': 0.9.4
       '@pgpmjs/traverse': 0.9.4
 
-  '@pgpmjs/core@7.17.0':
+  '@pgpmjs/core@file:portability/.tarballs/pgpmjs-core-7.17.0.tgz':
     dependencies:
       '@pgpmjs/ast': 0.9.4
-      '@pgpmjs/bundle': 0.12.2
+      '@pgpmjs/bundle': file:portability/.tarballs/pgpmjs-bundle-0.12.2.tgz
       '@pgpmjs/env': 2.39.1
       '@pgpmjs/logger': 2.22.0
       '@pgpmjs/server-utils': 3.23.3
@@ -7565,7 +7574,7 @@ snapshots:
 
   pgsql-client@4.8.4:
     dependencies:
-      '@pgpmjs/core': 7.17.0
+      '@pgpmjs/core': file:portability/.tarballs/pgpmjs-core-7.17.0.tgz
       '@pgpmjs/logger': 2.22.0
       '@pgpmjs/types': 2.48.0
       pg: 8.22.0
@@ -7587,7 +7596,7 @@ snapshots:
 
   pgsql-seed@3.8.4:
     dependencies:
-      '@pgpmjs/core': 7.17.0
+      '@pgpmjs/core': file:portability/.tarballs/pgpmjs-core-7.17.0.tgz
       '@pgpmjs/env': 2.39.1
       pg: 8.22.0
       pg-env: 1.26.0
