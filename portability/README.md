@@ -18,7 +18,6 @@ It exercises the pgpm apply/transform toolchain (`@pgpmjs/core`, `@pgpmjs/slice`
 
 ```
 portability/
-├── .tarballs/            # temporary pre-publication builds of the pgpm libraries
 ├── pgpm.json             # pgpm workspace for the fixture modules
 └── packages/
     ├── vendor-app/       # source-shaped module: auth subsystem + consumer app

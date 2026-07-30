@@ -10,13 +10,13 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@pgpmjs/core": "file:../../.tarballs/pgpmjs-core-7.16.0.tgz",
-    "@pgpmjs/slice": "file:../../.tarballs/pgpmjs-slice-0.10.2.tgz",
-    "@pgpmjs/transform": "file:../../.tarballs/pgpmjs-transform-0.11.1.tgz",
-    "@pgpmjs/types": "file:../../.tarballs/pgpmjs-types-2.47.0.tgz",
-    "pgsql-test": "^5.8.3",
-    "supabase-test": "^3.8.3",
-    "@pgpmjs/bundle": "^0.12.1"
+    "@pgpmjs/core": "7.17.0",
+    "@pgpmjs/slice": "0.11.0",
+    "@pgpmjs/transform": "0.12.0",
+    "@pgpmjs/types": "2.48.0",
+    "pgsql-test": "^5.8.4",
+    "supabase-test": "^3.8.4",
+    "@pgpmjs/bundle": "^0.12.2"
   },
   "keywords": []
 }
