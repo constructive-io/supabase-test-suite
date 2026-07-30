@@ -1,4 +1,5 @@
-import { rmSync } from 'fs';
+import { mkdtempSync, rmSync, writeFileSync } from 'fs';
+import { tmpdir } from 'os';
 import { join } from 'path';
 
 import {
@@ -67,19 +68,30 @@ suite('pgpm-shaped module transpiled onto the vendor stack', () => {
           }),
           '/spec/pgpm.apply.json'
         );
-        const native = await materializeApplyModule({
-          sourceDir: ported.outDir,
-          spec: reverse
-        });
-        outDirs.push(native.outDir);
+        // Materialization writes a bare module (pgpm.plan + .control + scripts)
+        // with no workspace marker, but native deploy resolves its target from a
+        // workspace module map. Wrap the result in a throwaway single-package
+        // workspace so the reverse module deploys through the ordinary path.
+        const wsRoot = mkdtempSync(join(tmpdir(), 'pgpm-native-ws-'));
+        outDirs.push(wsRoot);
+        writeFileSync(
+          join(wsRoot, 'pgpm.json'),
+          JSON.stringify({ packages: ['packages/*'] })
+        );
 
-        const module = new PgpmPackage(native.outDir);
-        await module.deploy(
+        await materializeApplyModule({
+          sourceDir: ported.outDir,
+          spec: reverse,
+          outDir: join(wsRoot, 'packages', 'vendor-app-native')
+        });
+
+        const workspace = new PgpmPackage(wsRoot);
+        await workspace.deploy(
           getEnvOptions({
             pg: config,
             deployment: { fast: true, usePlan: true }
           }),
-          module.getModuleName()
+          'vendor-app-native'
         );
       })
     ]));
