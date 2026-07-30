@@ -14,12 +14,6 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "pnpm": {
-    "overrides": {
-      "@pgpmjs/bundle": "file:./portability/.tarballs/pgpmjs-bundle-0.12.2.tgz",
-      "@pgpmjs/core": "file:./portability/.tarballs/pgpmjs-core-7.17.0.tgz"
-    }
-  },
   "scripts": {
     "bundle": "pnpm -r bundle",
     "lint": "pnpm -r lint",
@@ -41,7 +35,7 @@
     "lerna": "^8.2.3",
     "prettier": "^3.8.1",
     "rimraf": "^6.1.3",
-    "supabase-test": "^3.8.4",
+    "supabase-test": "^3.8.6",
     "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"

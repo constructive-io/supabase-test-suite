@@ -4,10 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@pgpmjs/bundle': file:./portability/.tarballs/pgpmjs-bundle-0.12.2.tgz
-  '@pgpmjs/core': file:./portability/.tarballs/pgpmjs-core-7.17.0.tgz
-
 importers:
 
   .:
@@ -55,8 +51,8 @@ importers:
         specifier: ^6.1.3
         version: 6.1.3
       supabase-test:
-        specifier: ^3.8.4
-        version: 3.8.4
+        specifier: ^3.8.6
+        version: 3.8.6
       ts-jest:
         specifier: ^29.4.11
         version: 29.4.12(@babel/core@7.29.7)(@jest/transform@30.4.1)(@jest/types@30.4.1)(babel-jest@30.4.1(@babel/core@7.29.7))(jest-util@30.4.1)(jest@30.4.2(@types/node@22.20.1)(ts-node@10.9.2(@types/node@22.20.1)(typescript@5.9.3)))(typescript@5.9.3)
@@ -74,34 +70,34 @@ importers:
   portability/packages/portability-tests:
     dependencies:
       '@pgpmjs/bundle':
-        specifier: file:../../.tarballs/pgpmjs-bundle-0.12.2.tgz
-        version: file:portability/.tarballs/pgpmjs-bundle-0.12.2.tgz
+        specifier: ^0.12.4
+        version: 0.12.4
       '@pgpmjs/core':
-        specifier: file:../../.tarballs/pgpmjs-core-7.17.0.tgz
-        version: file:portability/.tarballs/pgpmjs-core-7.17.0.tgz
+        specifier: 7.17.2
+        version: 7.17.2
       '@pgpmjs/env':
-        specifier: 2.39.1
-        version: 2.39.1
+        specifier: 2.39.2
+        version: 2.39.2
       '@pgpmjs/slice':
-        specifier: 0.11.0
-        version: 0.11.0
+        specifier: 0.11.2
+        version: 0.11.2
       '@pgpmjs/transform':
-        specifier: 0.12.0
-        version: 0.12.0
+        specifier: 0.12.2
+        version: 0.12.2
       '@pgpmjs/types':
-        specifier: 2.48.0
-        version: 2.48.0
+        specifier: 2.48.1
+        version: 2.48.1
       pgsql-test:
-        specifier: ^5.8.4
-        version: 5.8.4
+        specifier: ^5.8.6
+        version: 5.8.6
       supabase-test:
-        specifier: ^3.8.4
-        version: 3.8.4
+        specifier: ^3.8.6
+        version: 3.8.6
 
 packages:
 
-  12factor-env@1.25.0:
-    resolution: {integrity: sha512-sOa1kfMCTGCAP0MoYKswjimh/62Cg7KFJnnnCT8ABqBvwxBUy7oKWCgWQiqxx8Ke7uM6DaTbGDXTsBSynUnQUg==}
+  12factor-env@1.25.1:
+    resolution: {integrity: sha512-mhqpwoKDJnxGHiZY67tw+B9jK4PQfYSz4CswVK9g6hehTnTAMAffs1qfNoYymOb20v80c697dANmd4wjt5ENCw==}
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -276,8 +272,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@constructive-io/errors@0.7.1':
-    resolution: {integrity: sha512-/cX++hHpv/CRh53Un+1CawL+uX6OYOL+SG0hqbwONDZlXkWtT9swXuZCk9Q8XVH//2cQlCOmQFC+SpYPsSv42Q==}
+  '@constructive-io/errors@0.7.2':
+    resolution: {integrity: sha512-8Pnxq0uGwJpnwLgLYOlMJNxz3m8Zp/9Dc7kc1LI2S+77B6jhBaViGtpcm8E4Wb1GB8MDfvJhvnDMeX/i0tZjyw==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -684,37 +680,35 @@ packages:
   '@octokit/types@13.10.0':
     resolution: {integrity: sha512-ifLaO34EbbPj0Xgro4G5lP5asESjwHracYJvVaPIyXMuiuXLlhic3S47cBdTb+jfODkTE5YtGCLt3Ay3+J97sA==}
 
-  '@pgpmjs/ast@0.9.4':
-    resolution: {integrity: sha512-TZwmqRVxiIg2y/NKCL3BbjjdqfIprX5Q+f4IJNcdFTuUUFbDY7NzrYCFZ6Kjf6/EC8Bkj0/Hfa7cPZCoXvYwQg==}
+  '@pgpmjs/ast@0.9.5':
+    resolution: {integrity: sha512-S6k0mQMLHd8Amr9s7bGjJcMNlXxY7cqDaa63DZf/mjYgN4s5/ao2Uq0o7My22Hd7e4RBc0/KFldAskNoQLlE5A==}
 
-  '@pgpmjs/bundle@file:portability/.tarballs/pgpmjs-bundle-0.12.2.tgz':
-    resolution: {integrity: sha512-x7y3vTRVY6Cx9d1Cs/PeFtzBxgEH9C7pLbspk1eFB4qcCeCXsJS9LKdpzDBbmTwmGXO2gehatmi6jMEoVv1bKA==, tarball: file:portability/.tarballs/pgpmjs-bundle-0.12.2.tgz}
-    version: 0.12.2
+  '@pgpmjs/bundle@0.12.4':
+    resolution: {integrity: sha512-LFpKf5VCKUF4HyuGbqCGcZ41gSITpnoz5r0WY7Yx8FNUddYdkLymqo3DBVHFkwOHHGcal3UjV3Baf2WvkHPHAg==}
 
-  '@pgpmjs/core@file:portability/.tarballs/pgpmjs-core-7.17.0.tgz':
-    resolution: {integrity: sha512-J+SjjvX/oHbDOPWGguCDUdbSTNsL9ct4JAomqSR5hcJrsqPIwUHR4mpyTN1H3BXWiNTwSvcG+2v3tAd68RTPHA==, tarball: file:portability/.tarballs/pgpmjs-core-7.17.0.tgz}
-    version: 7.17.0
+  '@pgpmjs/core@7.17.2':
+    resolution: {integrity: sha512-oED5EYBlO27V26C2iTTJaJf9BM3A6IyBO2C1jDUDmhPb274hrOW8Ysctdpv/RKeAxhUeJzK4uq2FzehYtpwyMA==}
 
-  '@pgpmjs/env@2.39.1':
-    resolution: {integrity: sha512-ZpuyB1FIcvJwCXCxEKlbU5GPFlSaBIitNRm13lhJSlOvWQIjnfO7U3jr46poq/9OTNeh2r8d7/3VEh7WzJJSmQ==}
+  '@pgpmjs/env@2.39.2':
+    resolution: {integrity: sha512-ZX+wQUG8ZbzzXcbixi60gtslaOe6Cfu7FjjKMIYn4S1DYi5XcZGA4TKEtgskbfIsUF4iXcEg4eXIvDeBe+8hRA==}
 
-  '@pgpmjs/logger@2.22.0':
-    resolution: {integrity: sha512-4i0jDxylsWr8rIzBc7OeEaTbPHJup2iclBBA47qD4yh0SRElYVYUPRdX9XjsTGYmROK6ciJQTvpFO4h+o3dErQ==}
+  '@pgpmjs/logger@2.22.1':
+    resolution: {integrity: sha512-xRqaoBf9Sdw2v+PVZfdHsO8jg9ZWMntRRIk21lSFtPV40BYxcsTLDCyGycLTZr3Ao8FVRIOOsPiemUy4CuI7aQ==}
 
-  '@pgpmjs/server-utils@3.23.3':
-    resolution: {integrity: sha512-/jPqnsLxya9orn69/jhRQBfUiWSATOBw0ZDnRgvDIEimFuTwcbJ/znOGvs+zg5OAUuMDxaBhVmjQ152+3Bt5sg==}
+  '@pgpmjs/server-utils@3.23.4':
+    resolution: {integrity: sha512-+LYocviQk5aQW9XlUM8+NsGyFIEUZ9+raqxpl6Gi7dysRVQCsTG0Kx/9fK7G+WxGIC6jBtjjHGyErb72/ux/sg==}
 
-  '@pgpmjs/slice@0.11.0':
-    resolution: {integrity: sha512-Vg4/mqw2NhX/75nMNXAavaWJWlm0gmPM+yTCg3ayoeEx36lcqjuM/tRnZO3DoxAaTqalWx+F/ueLPQUcEmf/WQ==}
+  '@pgpmjs/slice@0.11.2':
+    resolution: {integrity: sha512-bl8VPvg6I2RHd7IhqcAk5vLNsmMboO4TnXnLYkjmAAVM2dVoH76iGlRU2Rp9wvq+PchDBKjvgXbn7ywED6svhQ==}
 
-  '@pgpmjs/transform@0.12.0':
-    resolution: {integrity: sha512-Y0J8JPFGihQShm/kEpwy0M1HYI+DYARfMO6aZJd9ms1TjKXJv4WUxzXTy/KXxGgEyqRQcSQnt1ElyMEloO3K8Q==}
+  '@pgpmjs/transform@0.12.2':
+    resolution: {integrity: sha512-e8hdUowLSC66dSgjiYxR41KXfDhKIf/AiuWBJ+zCBTF11mJydhYMGDKuYTaSTGtdWfYza2IPto3V+KPNt84ILg==}
 
-  '@pgpmjs/traverse@0.9.4':
-    resolution: {integrity: sha512-rbkIE+kr/+KXCVwavtcY48pux9Vc1QD23KtfaS/s9NZpLDfs5NjF+4HEvtTHAFTsCcE+TvFGQKHCGQlF9jfsNg==}
+  '@pgpmjs/traverse@0.9.5':
+    resolution: {integrity: sha512-wmIcHDr+PhdpmSXN/c9wpeDBpUylnjBiTXucoVdxJzDtNkec3c56um873WDX0R2+zQOGGqtBj8aRRMHnGnvnlQ==}
 
-  '@pgpmjs/types@2.48.0':
-    resolution: {integrity: sha512-uRAPx3IQDsRwq9rzd+jZx2FY55KbfOkzAwfkzbP/b1Y+g/M0ciN5GrKt0F7cj+W9mP0gpgN8/VvN4HCmc8PYnw==}
+  '@pgpmjs/types@2.48.1':
+    resolution: {integrity: sha512-k0Rqm/Cuqh1Jh4IQICyFbrAhC9X0ZTIlLXOpF18Pp86BwrUbd9uFtzawE6du7hPFcvL4aASgUSvEOJg5GsLfoQ==}
 
   '@pgsql/quotes@18.1.0':
     resolution: {integrity: sha512-wZcMP1QHiQbWWKOw4nfvZ74xUSz/9jqeSUXVnoR1saI5M0D+iYbiuOlfNDyYmziLwgEkCuSJLZK1dZ+eQCwgAA==}
@@ -1516,8 +1510,8 @@ packages:
     engines: {node: '>= 10'}
     hasBin: true
 
-  csv-to-pg@4.8.0:
-    resolution: {integrity: sha512-YyfrIN2+Y85ZyRhJBi+M/TyzP5YXEOgWcRVGG7yjooM2kGwkQk+tERQiyMs8fA1MfKdWT0SozuVkJxnR5pa6yg==}
+  csv-to-pg@4.8.1:
+    resolution: {integrity: sha512-klNg6oUNp4vNUfFRur5Pkvf5kctxKslPBryws55L01ks0avZCyOs9/4wsb+QHk5+2fzirEkc0pLPYIxtNUYErw==}
     hasBin: true
 
   dargs@7.0.0:
@@ -3024,8 +3018,8 @@ packages:
     resolution: {integrity: sha512-T2ZUsdZFHgA3u4e5PfPbjd7HDDpxPnQb5jN0SrDsjNSuVXHJqtwTnWqG0B1jZrgmJ/7lj1EmVIByWt1gxGkWvg==}
     engines: {node: '>=4'}
 
-  pg-cache@3.23.3:
-    resolution: {integrity: sha512-n9D3RjnDEqvuL1QCy5YQigGZGpqclDu9NfrAo204NuG9bDkVcnbbpjrsSau8UnioNzJQzOA48cD9IE06rPgjtw==}
+  pg-cache@3.23.4:
+    resolution: {integrity: sha512-mVvT7Pl9qB6cNpWMZ0kvWPrNGwYsqoVozcId9n3WxazmS4/kiDkCg7uq6t218ySgyofV4ClvcgVYhxiadzRSow==}
 
   pg-cloudflare@1.4.0:
     resolution: {integrity: sha512-Vo7z/6rrQYxpNRylp4Tlob2elzbh+N/MOQbxFVWCxS7oEx6jF53GTJFxK2WWpKuBRkmiin4Mt+xofFDjx09R0A==}
@@ -3036,8 +3030,8 @@ packages:
   pg-copy-streams@7.0.0:
     resolution: {integrity: sha512-zBvnY6wtaBRE2ae2xXWOOGMaNVPkXh1vhypAkNSKgMdciJeTyIQAHZaEeRAxUjs/p1El5jgzYmwG5u871Zj3dQ==}
 
-  pg-env@1.26.0:
-    resolution: {integrity: sha512-QqSPwJkgaRULv4hwApD6qr5/i/O/mH0tmOF2FNDSKcTVMq31tNMLxPK4BsVDjBG82i2TXA1jD7C4B4Widybm/A==}
+  pg-env@1.26.1:
+    resolution: {integrity: sha512-X9rMb68Q7xtd/ln/yogFQ6+qkeX6GOWC5r5GJdnBC6UW6ENhwblF2JLQEKDGpMYBYP9D+Qwj8QuPWonoRJ4p3w==}
 
   pg-int8@1.0.1:
     resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
@@ -3054,8 +3048,8 @@ packages:
   pg-protocol@1.15.0:
     resolution: {integrity: sha512-cq9sECI5s0+uPUXjbz8ioyPJni6RzsRib0US67i5IoTZKw8fNeYlVE7u8F4dG7vEJJtc5wdD1K189lCCUwqWTQ==}
 
-  pg-seed@0.25.0:
-    resolution: {integrity: sha512-HHRiiCOyekF/0ghx7xnNXWI20qKqZhLdHAe9Ps94VmLB/yZntiAXlzAIzHuSeuLKF3udoYQQiYxhnVIqzXKDZw==}
+  pg-seed@0.25.1:
+    resolution: {integrity: sha512-b20QZm4fziZrS21nXTTe2P4L1l/X0ogOe9MnUljNMRMEgoKbozC2+kwPebLVOZeD9u/CGcXcS1KRSn1UP6BmTw==}
 
   pg-types@2.2.0:
     resolution: {integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==}
@@ -3073,8 +3067,8 @@ packages:
   pgpass@1.0.5:
     resolution: {integrity: sha512-FdW9r/jQZhSeohs1Z3sI1yxFQNFvMcnmfuj4WBMUTxOrAyLMaTcE1aAMBiTlbMNaXvBCQuVi0R7hd8udDSP7ug==}
 
-  pgsql-client@4.8.4:
-    resolution: {integrity: sha512-E47rkUQ5ThNHhBy4jDWLX1Z1I79oIBodgbXeVI6nCKnzaVww2iUd/fgw0X8k0xg88Dp4vpr3VVb84U0/0dgAxw==}
+  pgsql-client@4.8.6:
+    resolution: {integrity: sha512-diEApLekSpn1epvHrrHEaTivuxsh2HYzlnlbQ2o/9dsyDLe5GPTgT0yflR8zid8uC1dFXFMUTzGyy+nIKMbahw==}
 
   pgsql-deparser@18.1.1:
     resolution: {integrity: sha512-G+5yj8rGlkW5YUJTKubV3J5YnAvbm8YpzphT1bYkRjAI5MKTVRXwGZJ0gqluqjhLNqDw6d20IFE4J5Z7yEmwWg==}
@@ -3082,11 +3076,11 @@ packages:
   pgsql-parser@18.1.1:
     resolution: {integrity: sha512-wMOCDIuj7TOGy1gxYn2B0/y2row8sOIbPJ4IMkLD0fpgwgGZN26TYK+05AG27WExgzp9JGr9EbTaCF8T1sVzrQ==}
 
-  pgsql-seed@3.8.4:
-    resolution: {integrity: sha512-7jDvET4LMhzlVs8hakS3F00hROswN9FtK82VPFCqArE1llWWXLQitTXxVhQFmFLoRXw3Y6hiv5NGij53AgplZA==}
+  pgsql-seed@3.8.6:
+    resolution: {integrity: sha512-51JZJNaa3+Emu8Wslm6PtHVps3DDW048ODMGZWPx7kohyXd5AW93pPpL14PpcSjJIphM4gDtQRhPwXWmMYBsNg==}
 
-  pgsql-test@5.8.4:
-    resolution: {integrity: sha512-fSB9m29KY/J2M8WQwsj44lwzttT/F0A1AkLn4/T9LHkKzey1tdC2CnUp27SpePLk0kGCAu2RpYKLMW25hgsxGg==}
+  pgsql-test@5.8.6:
+    resolution: {integrity: sha512-YK9yxnA0v1R7WanNYdcHsTn4SkWbeBR7lINMQfxai7+8yUQv6G9CFOzKQKe9MS5XokunGm0vGtnnenl/FLRCmA==}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -3520,8 +3514,8 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
-  supabase-test@3.8.4:
-    resolution: {integrity: sha512-UvsgbxbkeShzFLfy0wfu19eJVUtU+V8vRyZkGSU1NrSZnRnmDvOSX4LRPkoNaAWD7BUxjd9gtQ61sYRwrlAUAQ==}
+  supabase-test@3.8.6:
+    resolution: {integrity: sha512-1x1k+3Mh3azdNRqyTsTjaSMn/HHgh6e1Hl/sRwtjb4h37LEzCSe1NSxTsRkXHwDIJleHx0pDRB8Y/Cl91iw2fA==}
 
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
@@ -3884,7 +3878,7 @@ packages:
 
 snapshots:
 
-  12factor-env@1.25.0:
+  12factor-env@1.25.1:
     dependencies:
       envalid: 8.2.0
 
@@ -4094,7 +4088,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@constructive-io/errors@0.7.1': {}
+  '@constructive-io/errors@0.7.2': {}
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -4758,33 +4752,33 @@ snapshots:
     dependencies:
       '@octokit/openapi-types': 24.2.0
 
-  '@pgpmjs/ast@0.9.4':
+  '@pgpmjs/ast@0.9.5':
     dependencies:
-      '@pgpmjs/env': 2.39.1
-      '@pgpmjs/types': 2.48.0
+      '@pgpmjs/env': 2.39.2
+      '@pgpmjs/types': 2.48.1
 
-  '@pgpmjs/bundle@file:portability/.tarballs/pgpmjs-bundle-0.12.2.tgz':
+  '@pgpmjs/bundle@0.12.4':
     dependencies:
-      '@pgpmjs/ast': 0.9.4
-      '@pgpmjs/traverse': 0.9.4
+      '@pgpmjs/ast': 0.9.5
+      '@pgpmjs/traverse': 0.9.5
 
-  '@pgpmjs/core@file:portability/.tarballs/pgpmjs-core-7.17.0.tgz':
+  '@pgpmjs/core@7.17.2':
     dependencies:
-      '@pgpmjs/ast': 0.9.4
-      '@pgpmjs/bundle': file:portability/.tarballs/pgpmjs-bundle-0.12.2.tgz
-      '@pgpmjs/env': 2.39.1
-      '@pgpmjs/logger': 2.22.0
-      '@pgpmjs/server-utils': 3.23.3
-      '@pgpmjs/slice': 0.11.0
-      '@pgpmjs/transform': 0.12.0
-      '@pgpmjs/types': 2.48.0
-      csv-to-pg: 4.8.0
+      '@pgpmjs/ast': 0.9.5
+      '@pgpmjs/bundle': 0.12.4
+      '@pgpmjs/env': 2.39.2
+      '@pgpmjs/logger': 2.22.1
+      '@pgpmjs/server-utils': 3.23.4
+      '@pgpmjs/slice': 0.11.2
+      '@pgpmjs/transform': 0.12.2
+      '@pgpmjs/types': 2.48.1
+      csv-to-pg: 4.8.1
       genomic: 5.6.2
       glob: 13.0.6
       parse-package-name: 1.0.0
       pg: 8.22.0
-      pg-cache: 3.23.3
-      pg-env: 1.26.0
+      pg-cache: 3.23.4
+      pg-env: 1.26.1
       pgsql-deparser: 18.1.1
       pgsql-parser: 18.1.1
       yanse: 0.2.1
@@ -4792,50 +4786,50 @@ snapshots:
       - pg-native
       - supports-color
 
-  '@pgpmjs/env@2.39.1':
+  '@pgpmjs/env@2.39.2':
     dependencies:
-      12factor-env: 1.25.0
-      '@pgpmjs/types': 2.48.0
+      12factor-env: 1.25.1
+      '@pgpmjs/types': 2.48.1
       deepmerge: 4.3.1
 
-  '@pgpmjs/logger@2.22.0':
+  '@pgpmjs/logger@2.22.1':
     dependencies:
       yanse: 0.2.1
 
-  '@pgpmjs/server-utils@3.23.3':
+  '@pgpmjs/server-utils@3.23.4':
     dependencies:
-      '@pgpmjs/logger': 2.22.0
-      '@pgpmjs/types': 2.48.0
+      '@pgpmjs/logger': 2.22.1
+      '@pgpmjs/types': 2.48.1
       cors: 2.8.6
       express: 5.2.1
       lru-cache: 11.5.2
     transitivePeerDependencies:
       - supports-color
 
-  '@pgpmjs/slice@0.11.0':
+  '@pgpmjs/slice@0.11.2':
     dependencies:
-      '@pgpmjs/ast': 0.9.4
-      '@pgpmjs/transform': 0.12.0
+      '@pgpmjs/ast': 0.9.5
+      '@pgpmjs/transform': 0.12.2
       minimatch: 10.2.6
       plpgsql-parser: 18.2.1
     transitivePeerDependencies:
       - supports-color
 
-  '@pgpmjs/transform@0.12.0':
+  '@pgpmjs/transform@0.12.2':
     dependencies:
       '@pgsql/transform': 18.7.0
       plpgsql-parser: 18.2.1
     transitivePeerDependencies:
       - supports-color
 
-  '@pgpmjs/traverse@0.9.4':
+  '@pgpmjs/traverse@0.9.5':
     dependencies:
-      '@pgpmjs/ast': 0.9.4
+      '@pgpmjs/ast': 0.9.5
 
-  '@pgpmjs/types@2.48.0':
+  '@pgpmjs/types@2.48.1':
     dependencies:
-      '@constructive-io/errors': 0.7.1
-      pg-env: 1.26.0
+      '@constructive-io/errors': 0.7.2
+      pg-env: 1.26.1
 
   '@pgsql/quotes@18.1.0': {}
 
@@ -5645,7 +5639,7 @@ snapshots:
 
   csv-parser@3.2.1: {}
 
-  csv-to-pg@4.8.0:
+  csv-to-pg@4.8.1:
     dependencies:
       '@pgsql/types': 18.0.0
       '@pgsql/utils': 18.1.1
@@ -7498,14 +7492,14 @@ snapshots:
     dependencies:
       pify: 3.0.0
 
-  pg-cache@3.23.3:
+  pg-cache@3.23.4:
     dependencies:
-      12factor-env: 1.25.0
-      '@pgpmjs/logger': 2.22.0
-      '@pgpmjs/types': 2.48.0
+      12factor-env: 1.25.1
+      '@pgpmjs/logger': 2.22.1
+      '@pgpmjs/types': 2.48.1
       lru-cache: 11.5.2
       pg: 8.22.0
-      pg-env: 1.26.0
+      pg-env: 1.26.1
     transitivePeerDependencies:
       - pg-native
 
@@ -7516,9 +7510,9 @@ snapshots:
 
   pg-copy-streams@7.0.0: {}
 
-  pg-env@1.26.0:
+  pg-env@1.26.1:
     dependencies:
-      12factor-env: 1.25.0
+      12factor-env: 1.25.1
 
   pg-int8@1.0.1: {}
 
@@ -7542,7 +7536,7 @@ snapshots:
 
   pg-protocol@1.15.0: {}
 
-  pg-seed@0.25.0:
+  pg-seed@0.25.1:
     dependencies:
       csv-parse: 6.2.1
       pg: 8.22.0
@@ -7572,13 +7566,13 @@ snapshots:
     dependencies:
       split2: 4.2.0
 
-  pgsql-client@4.8.4:
+  pgsql-client@4.8.6:
     dependencies:
-      '@pgpmjs/core': file:portability/.tarballs/pgpmjs-core-7.17.0.tgz
-      '@pgpmjs/logger': 2.22.0
-      '@pgpmjs/types': 2.48.0
+      '@pgpmjs/core': 7.17.2
+      '@pgpmjs/logger': 2.22.1
+      '@pgpmjs/types': 2.48.1
       pg: 8.22.0
-      pg-env: 1.26.0
+      pg-env: 1.26.1
     transitivePeerDependencies:
       - pg-native
       - supports-color
@@ -7594,28 +7588,28 @@ snapshots:
       libpg-query: 18.1.2
       pgsql-deparser: 18.1.1
 
-  pgsql-seed@3.8.4:
+  pgsql-seed@3.8.6:
     dependencies:
-      '@pgpmjs/core': file:portability/.tarballs/pgpmjs-core-7.17.0.tgz
-      '@pgpmjs/env': 2.39.1
+      '@pgpmjs/core': 7.17.2
+      '@pgpmjs/env': 2.39.2
       pg: 8.22.0
-      pg-env: 1.26.0
-      pg-seed: 0.25.0
+      pg-env: 1.26.1
+      pg-seed: 0.25.1
     transitivePeerDependencies:
       - pg-native
       - supports-color
 
-  pgsql-test@5.8.4:
+  pgsql-test@5.8.6:
     dependencies:
-      '@pgpmjs/env': 2.39.1
-      '@pgpmjs/logger': 2.22.0
-      '@pgpmjs/server-utils': 3.23.3
-      '@pgpmjs/types': 2.48.0
+      '@pgpmjs/env': 2.39.2
+      '@pgpmjs/logger': 2.22.1
+      '@pgpmjs/server-utils': 3.23.4
+      '@pgpmjs/types': 2.48.1
       pg: 8.22.0
-      pg-cache: 3.23.3
-      pg-env: 1.26.0
-      pgsql-client: 4.8.4
-      pgsql-seed: 3.8.4
+      pg-cache: 3.23.4
+      pg-env: 1.26.1
+      pgsql-client: 4.8.6
+      pgsql-seed: 3.8.6
     transitivePeerDependencies:
       - pg-native
       - supports-color
@@ -8055,12 +8049,12 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  supabase-test@3.8.4:
+  supabase-test@3.8.6:
     dependencies:
-      '@pgpmjs/types': 2.48.0
+      '@pgpmjs/types': 2.48.1
       deepmerge: 4.3.1
-      pg-env: 1.26.0
-      pgsql-test: 5.8.4
+      pg-env: 1.26.1
+      pgsql-test: 5.8.6
     transitivePeerDependencies:
       - pg-native
       - supports-color
