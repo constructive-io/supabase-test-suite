@@ -5,3 +5,6 @@
 lerna-debug.log
 **/__tests__/**/*.js
 **/__tests__/**/*.test.d.ts
+
+# Supabase CLI local artifacts (from `supabase init`/`supabase start`)
+/supabase/
