@@ -1,6 +1,7 @@
 {
   "packages": [
-    "packages/*"
+    "packages/*",
+    "materialized/packages/*"
   ],
   "db": {
     "roles": {

@@ -1,0 +1,5 @@
+BEGIN;
+
+DROP SCHEMA app;
+
+COMMIT;
