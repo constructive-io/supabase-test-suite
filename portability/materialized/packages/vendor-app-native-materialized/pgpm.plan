@@ -1,0 +1,7 @@
+%syntax-version=1.0.0
+%project=vendor-app-native-materialized
+%uri=vendor-app-native-materialized
+
+schemas/app/schema 2024-01-01T00:00:03Z Dev <dev@example.com> # add app schema
+schemas/app/tables/documents/table [schemas/app/schema] 2024-01-01T00:00:04Z Dev <dev@example.com> # add documents table
+schemas/app/policies/documents_owner [schemas/app/tables/documents/table] 2024-01-01T00:00:05Z Dev <dev@example.com> # add documents policy
