@@ -1,3 +1,52 @@
 packages:
   - 'packages/*'
   - 'portability/packages/*'
+
+# Exempt from the wait: 6 scope glob(s), 24 first-party package(s).
+# First-party membership comes from what pyramation publishes on npm — waiting on your own release protects nothing.
+minimumReleaseAgeExclude:
+  - "@constructive-db/*"
+  - "@constructive-io/*"
+  - "@launchql/*"
+  - "@pgpm/*"
+  - "@pgpmjs/*"
+  - "@pgsql/*"
+  - 12factor-env
+  - appstash
+  - csv-to-pg
+  - find-and-require-package-json
+  - genomic
+  - inquirerer
+  - libpg-query
+  - nested-obj
+  - pg-cache
+  - pg-env
+  - pg-proto-parser
+  - pg-seed
+  - pgsql-client
+  - pgsql-deparser
+  - pgsql-parser
+  - pgsql-seed
+  - pgsql-test
+  - plpgsql-deparser
+  - plpgsql-parser
+  - pnpm-policy
+  - strfy-js
+  - supabase-test
+  - yamlize
+  - yanse
+
+# Managed by pnpm-policy — run `pnpm-policy generate` after editing pnpm-policy.yaml.
+
+# A third-party release must be 2d old before it can be installed.
+# Most malicious releases are found and yanked well inside that window.
+minimumReleaseAge: 2880
+
+# Transitive dependencies must come from the registry, not from git or a URL.
+blockExoticSubdeps: true
+
+# The only dependencies permitted to run install scripts.
+allowBuilds:
+  "@launchql/protobufjs": true # postinstall checks for the optional native encoding helpers (bytebuffer/long) protobufjs uses for perf and prints a warning when they're absent; no code generation or network access happens.
+  nx: true # postinstall (bin/post-install) downloads the platform-specific @nx/nx-<os>-<arch> native binary the task-graph engine requires to run at all.
+  unrs-resolver: true # postinstall selects/loads the prebuilt napi-rs native binding for the current platform; the resolver package has no pure-JS fallback.
