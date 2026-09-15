@@ -10,15 +10,15 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@pgpmjs/bundle": "^0.13.0",
-    "@pgpmjs/core": "7.20.0",
-    "@pgpmjs/env": "2.40.0",
-    "@pgpmjs/portability": "0.3.0",
-    "@pgpmjs/slice": "0.13.0",
-    "@pgpmjs/transform": "0.14.0",
-    "@pgpmjs/types": "2.49.0",
-    "pgsql-test": "^5.9.0",
-    "supabase-test": "^3.9.0"
+    "@pgpmjs/bundle": "^0.16.6",
+    "@pgpmjs/core": "7.27.7",
+    "@pgpmjs/env": "2.43.6",
+    "@pgpmjs/portability": "0.7.7",
+    "@pgpmjs/slice": "0.16.6",
+    "@pgpmjs/transform": "0.25.6",
+    "@pgpmjs/types": "2.53.4",
+    "pgsql-test": "^5.13.7",
+    "supabase-test": "^3.13.7"
   },
   "keywords": []
 }
