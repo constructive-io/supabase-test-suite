@@ -84,9 +84,6 @@ jobs:
       - name: Install pgpm CLI globally
         run: npm install -g pgpm
 
-      - name: Build
-        run: pnpm -r build
-
       - name: Seed pg and app_user
         run: |
           # bootstrap admin user NOT REQUIRED FOR supabase
