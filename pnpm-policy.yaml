@@ -37,6 +37,11 @@ allowBuilds:
   nx: postinstall (bin/post-install) downloads the platform-specific @nx/nx-<os>-<arch> native binary the task-graph engine requires to run at all.
   unrs-resolver: postinstall selects/loads the prebuilt napi-rs native binding for the current platform; the resolver package has no pure-JS fallback.
 
+# Install scripts pnpm would otherwise ask about; each ships a prebuilt binary as
+# an optional dependency and only compiles as a fallback we do not need.
+denyBuilds:
+  "@parcel/watcher": prebuilt binary ships as an optional dep
+
 # Third-party escape hatches. A reason is required; `until` expires the waiver so
 # `check` makes you re-justify it instead of letting it live forever.
 exceptions: []
