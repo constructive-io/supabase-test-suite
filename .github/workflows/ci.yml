@@ -94,3 +94,54 @@ jobs:
       - name: Test ${{ matrix.package }}
         run: cd ./packages/${{ matrix.package }} && pnpm test
 
+
+  safegres:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: write
+      security-events: write
+
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 54322
+      PGUSER: supabase_admin
+      PGPASSWORD: postgres
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Initialize Supabase (if needed)
+        run: test -d supabase || supabase init
+
+      - name: Start Supabase stack
+        run: supabase start
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install
+        run: pnpm install
+
+      - name: Safegres audit
+        uses: constructive-io/constructive/packages/safegres@safegres-action-v1
+        with:
+          version: local
+          config: safegres.config.js
+          comment: ${{ github.event_name == 'pull_request' }}
+          upload-sarif: true

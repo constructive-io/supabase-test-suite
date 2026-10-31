@@ -8,3 +8,6 @@ lerna-debug.log
 
 # Supabase CLI local artifacts (from `supabase init`/`supabase start`)
 /supabase/
+
+# Safegres reports (`pnpm audit:db`)
+/safegres-reports/

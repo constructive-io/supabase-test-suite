@@ -2,7 +2,7 @@ packages:
   - 'packages/*'
   - 'portability/packages/*'
 
-# Exempt from the wait: 6 scope glob(s), 25 first-party package(s).
+# Exempt from the wait: 6 scope glob(s), 28 first-party package(s).
 # First-party membership comes from what pyramation publishes on npm — waiting on your own release protects nothing.
 minimumReleaseAgeExclude:
   - "@constructive-db/*"
@@ -12,7 +12,9 @@ minimumReleaseAgeExclude:
   - "@pgpmjs/*"
   - "@pgsql/*"
   - 12factor-env
+  - "@inquirerer/utils"
   - appstash
+  - confstash
   - csv-to-pg
   - find-and-require-package-json
   - genomic
@@ -32,6 +34,7 @@ minimumReleaseAgeExclude:
   - plpgsql-deparser
   - plpgsql-parser
   - pnpm-policy
+  - safegres
   - strfy-js
   - supabase-test
   - yamlize
