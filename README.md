@@ -63,6 +63,14 @@ cd packages/supabase
 pnpm test:watch
 ```
 
+## Security audit (Safegres)
+
+CI audits the deployed schemas with [Safegres](https://github.com/constructive-io/constructive/tree/main/packages/safegres) using the `safegres:supabase` preset (see `safegres.config.js`). Run it locally against the Supabase stack:
+
+```bash
+PGPORT=54322 PGUSER=supabase_admin PGPASSWORD=postgres pnpm audit:db
+```
+
 ## Requirements
 
 - Node.js 20+

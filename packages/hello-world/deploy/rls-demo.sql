@@ -26,27 +26,27 @@ ALTER TABLE rls_test.pets ENABLE ROW LEVEL SECURITY;
 -- Create RLS policies for users table
 -- Users can view their own data
 CREATE POLICY "Users can view own data" ON rls_test.pets
-    FOR SELECT USING (auth.uid() = user_id);
+    FOR SELECT TO authenticated USING (auth.uid() = user_id);
 
 -- Users can update their own data
 CREATE POLICY "Users can update own data" ON rls_test.pets
-    FOR UPDATE USING (auth.uid() = user_id);
+    FOR UPDATE TO authenticated USING (auth.uid() = user_id);
 
 -- Users can insert their own data
 CREATE POLICY "Users can insert own data" ON rls_test.pets
-    FOR INSERT WITH CHECK (auth.uid() = user_id);
+    FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
 
 -- Users can delete their own data
 CREATE POLICY "Users can delete own data" ON rls_test.pets
-    FOR DELETE USING (auth.uid() = user_id);
+    FOR DELETE TO authenticated USING (auth.uid() = user_id);
 
--- Grant permissions to anon users
+-- Grant permissions to anon users (read-only; RLS returns no rows)
 GRANT USAGE ON SCHEMA rls_test TO anon;
-GRANT ALL ON rls_test.pets TO anon;
+GRANT SELECT ON rls_test.pets TO anon;
 
 -- Grant permissions to authenticated users
 GRANT USAGE ON SCHEMA rls_test TO authenticated;
-GRANT ALL ON rls_test.pets TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON rls_test.pets TO authenticated;
 
 -- Grant permissions to service role (for admin operations)
 GRANT USAGE ON SCHEMA rls_test TO service_role;
