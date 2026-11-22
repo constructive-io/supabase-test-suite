@@ -1,4 +1,4 @@
-\echo Use "CREATE EXTENSION supabase" to load this file. \quit
+\echo Use "CREATE EXTENSION supabase-schema" to load this file. \quit
 CREATE SCHEMA auth;
 
 CREATE SCHEMA extensions;
@@ -270,7 +270,12 @@ $EOFCODE$;
 
 COMMENT ON FUNCTION extensions.set_graphql_placeholder() IS 'Reintroduces placeholder function for graphql_public.graphql';
 
-CREATE FUNCTION pgbouncer.get_auth(p_usename text) RETURNS TABLE ( username text, password text ) LANGUAGE plpgsql SECURITY DEFINER AS $EOFCODE$
+CREATE FUNCTION pgbouncer.get_auth(
+  p_usename text
+) RETURNS TABLE (
+  username text,
+  password text
+) LANGUAGE plpgsql SECURITY DEFINER AS $EOFCODE$
 begin
     raise debug 'PgBouncer auth request: %', p_usename;
 
@@ -286,7 +291,9 @@ begin
 end;
 $EOFCODE$;
 
-CREATE FUNCTION storage.extension(name text) RETURNS text LANGUAGE plpgsql AS $EOFCODE$
+CREATE FUNCTION storage.extension(
+  name text
+) RETURNS text LANGUAGE plpgsql AS $EOFCODE$
 DECLARE
 _parts text[];
 _filename text;
@@ -298,7 +305,9 @@ BEGIN
 END
 $EOFCODE$;
 
-CREATE FUNCTION storage.filename(name text) RETURNS text LANGUAGE plpgsql AS $EOFCODE$
+CREATE FUNCTION storage.filename(
+  name text
+) RETURNS text LANGUAGE plpgsql AS $EOFCODE$
 DECLARE
 _parts text[];
 BEGIN
@@ -307,7 +316,9 @@ BEGIN
 END
 $EOFCODE$;
 
-CREATE FUNCTION storage.foldername(name text) RETURNS text[] LANGUAGE plpgsql AS $EOFCODE$
+CREATE FUNCTION storage.foldername(
+  name text
+) RETURNS text[] LANGUAGE plpgsql AS $EOFCODE$
 DECLARE
 _parts text[];
 BEGIN
@@ -316,7 +327,20 @@ BEGIN
 END
 $EOFCODE$;
 
-CREATE FUNCTION storage.search(prefix text, bucketname text, limits int DEFAULT 100, levels int DEFAULT 1, offsets int DEFAULT 0) RETURNS TABLE ( name text, id uuid, updated_at timestamp with time zone, created_at timestamp with time zone, last_accessed_at timestamp with time zone, metadata jsonb ) LANGUAGE plpgsql AS $EOFCODE$
+CREATE FUNCTION storage.search(
+  prefix text,
+  bucketname text,
+  limits int DEFAULT 100,
+  levels int DEFAULT 1,
+  offsets int DEFAULT 0
+) RETURNS TABLE (
+  name text,
+  id uuid,
+  updated_at timestamp with time zone,
+  created_at timestamp with time zone,
+  last_accessed_at timestamp with time zone,
+  metadata jsonb
+) LANGUAGE plpgsql AS $EOFCODE$
 DECLARE
 _bucketId text;
 BEGIN
@@ -500,7 +524,7 @@ ALTER TABLE ONLY storage.objects
 ALTER TABLE storage.objects 
   ENABLE ROW LEVEL SECURITY;
 
-CREATE PUBLICATION "supabase_realtime" WITH (publish = 'insert, update, delete, truncate');
+CREATE PUBLICATION supabase_realtime WITH (publish = 'insert, update, delete, truncate');
 
 CREATE EVENT TRIGGER issue_graphql_placeholder ON sql_drop WHEN tag IN ('DROP EXTENSION') EXECUTE PROCEDURE extensions.set_graphql_placeholder();
 
@@ -1056,7 +1080,9 @@ ALTER TABLE storage.objects
 
 DROP FUNCTION IF EXISTS storage.foldername;
 
-CREATE OR REPLACE FUNCTION storage.foldername(name text) RETURNS text[] LANGUAGE plpgsql AS $EOFCODE$
+CREATE OR REPLACE FUNCTION storage.foldername(
+  name text
+) RETURNS text[] LANGUAGE plpgsql AS $EOFCODE$
 DECLARE
 _parts text[];
 BEGIN
@@ -1067,7 +1093,9 @@ $EOFCODE$;
 
 DROP FUNCTION IF EXISTS storage.filename;
 
-CREATE OR REPLACE FUNCTION storage.filename(name text) RETURNS text LANGUAGE plpgsql AS $EOFCODE$
+CREATE OR REPLACE FUNCTION storage.filename(
+  name text
+) RETURNS text LANGUAGE plpgsql AS $EOFCODE$
 DECLARE
 _parts text[];
 BEGIN
@@ -1078,7 +1106,9 @@ $EOFCODE$;
 
 DROP FUNCTION IF EXISTS storage.extension;
 
-CREATE OR REPLACE FUNCTION storage.extension(name text) RETURNS text LANGUAGE plpgsql AS $EOFCODE$
+CREATE OR REPLACE FUNCTION storage.extension(
+  name text
+) RETURNS text LANGUAGE plpgsql AS $EOFCODE$
 DECLARE
 _parts text[];
 _filename text;
@@ -1092,7 +1122,20 @@ $EOFCODE$;
 
 DROP FUNCTION IF EXISTS storage.search;
 
-CREATE OR REPLACE FUNCTION storage.search(prefix text, bucketname text, limits int DEFAULT 100, levels int DEFAULT 1, offsets int DEFAULT 0) RETURNS TABLE ( name text, id uuid, updated_at timestamptz, created_at timestamptz, last_accessed_at timestamptz, metadata jsonb ) LANGUAGE plpgsql AS $EOFCODE$
+CREATE OR REPLACE FUNCTION storage.search(
+  prefix text,
+  bucketname text,
+  limits int DEFAULT 100,
+  levels int DEFAULT 1,
+  offsets int DEFAULT 0
+) RETURNS TABLE (
+  name text,
+  id uuid,
+  updated_at timestamptz,
+  created_at timestamptz,
+  last_accessed_at timestamptz,
+  metadata jsonb
+) LANGUAGE plpgsql AS $EOFCODE$
 BEGIN
 	return query 
 		with files_folders as (
@@ -1145,7 +1188,9 @@ ALTER TABLE storage.objects
   ADD COLUMN IF NOT EXISTS level int
     NULL;
 
-CREATE OR REPLACE FUNCTION storage.get_level(name text) RETURNS int AS $EOFCODE$
+CREATE OR REPLACE FUNCTION storage.get_level(
+  name text
+) RETURNS int AS $EOFCODE$
 SELECT array_length(string_to_array("name", '/'), 1);
 $EOFCODE$ LANGUAGE sql IMMUTABLE STRICT;
 
@@ -1164,7 +1209,9 @@ CREATE TABLE IF NOT EXISTS storage.prefixes (
 ALTER TABLE storage.prefixes 
   ENABLE ROW LEVEL SECURITY;
 
-CREATE OR REPLACE FUNCTION storage.get_prefix(name text) RETURNS text AS $EOFCODE$
+CREATE OR REPLACE FUNCTION storage.get_prefix(
+  name text
+) RETURNS text AS $EOFCODE$
 SELECT
     CASE WHEN strpos("name", '/') > 0 THEN
              regexp_replace("name", '[\/]{1}[^\/]+\/?$', '')
@@ -1173,7 +1220,9 @@ SELECT
         END;
 $EOFCODE$ LANGUAGE sql IMMUTABLE STRICT;
 
-CREATE OR REPLACE FUNCTION storage.get_prefixes(name text) RETURNS text[] AS $EOFCODE$
+CREATE OR REPLACE FUNCTION storage.get_prefixes(
+  name text
+) RETURNS text[] AS $EOFCODE$
 DECLARE
     parts text[];
     prefixes text[];
@@ -1193,7 +1242,10 @@ BEGIN
 END;
 $EOFCODE$ LANGUAGE plpgsql IMMUTABLE STRICT;
 
-CREATE OR REPLACE FUNCTION storage.add_prefixes(_bucket_id text, _name text) RETURNS void SECURITY DEFINER AS $EOFCODE$
+CREATE OR REPLACE FUNCTION storage.add_prefixes(
+  _bucket_id text,
+  _name text
+) RETURNS void SECURITY DEFINER AS $EOFCODE$
 DECLARE
     prefixes text[];
 BEGIN
@@ -1206,7 +1258,10 @@ BEGIN
 END;
 $EOFCODE$ LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION storage.delete_prefix(_bucket_id text, _name text) RETURNS boolean SECURITY DEFINER AS $EOFCODE$
+CREATE OR REPLACE FUNCTION storage.delete_prefix(
+  _bucket_id text,
+  _name text
+) RETURNS boolean SECURITY DEFINER AS $EOFCODE$
 BEGIN
     -- Check if we can delete the prefix
     IF EXISTS(
@@ -1269,26 +1324,26 @@ CREATE OR REPLACE TRIGGER prefixes_delete_hierarchy
   AFTER DELETE
   ON storage.prefixes
   FOR EACH ROW
-  EXECUTE PROCEDURE storage.delete_prefix_hierarchy_trigger();
+  EXECUTE FUNCTION storage.delete_prefix_hierarchy_trigger();
 
 CREATE OR REPLACE TRIGGER objects_insert_create_prefix
   BEFORE INSERT
   ON storage.objects
   FOR EACH ROW
-  EXECUTE PROCEDURE storage.objects_insert_prefix_trigger();
+  EXECUTE FUNCTION storage.objects_insert_prefix_trigger();
 
 CREATE OR REPLACE TRIGGER objects_update_create_prefix
   BEFORE UPDATE
   ON storage.objects
   FOR EACH ROW
   WHEN (new.name <> old.name)
-  EXECUTE PROCEDURE storage.objects_insert_prefix_trigger();
+  EXECUTE FUNCTION storage.objects_insert_prefix_trigger();
 
 CREATE OR REPLACE TRIGGER objects_delete_delete_prefix
   AFTER DELETE
   ON storage.objects
   FOR EACH ROW
-  EXECUTE PROCEDURE storage.delete_prefix_hierarchy_trigger();
+  EXECUTE FUNCTION storage.delete_prefix_hierarchy_trigger();
 
 DO $EOFCODE$
     DECLARE

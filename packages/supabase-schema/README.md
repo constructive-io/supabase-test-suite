@@ -1,4 +1,4 @@
-# @pgpm/supabase
+# @pgpm/supabase-schema
 
 <p align="center" width="100%">
   <img height="250" src="https://raw.githubusercontent.com/constructive-io/supabase-test-suite/refs/heads/main/docs/img/logos.svg" />
@@ -23,6 +23,9 @@ Supabase-focused SQL, tests, and helpers for building robust applications with R
 ## Quick Start
 
 ```bash
+# Install the schema module
+pgpm install @pgpm/supabase-schema
+
 # Run tests
 pnpm test
 

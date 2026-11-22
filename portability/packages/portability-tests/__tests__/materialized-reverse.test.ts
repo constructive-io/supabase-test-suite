@@ -11,13 +11,13 @@ import { portabilityRoot, REVERSE_MODULE } from '../src/materialize-fixtures';
 // native subsystem: the committed SQL in `vendor-app-native-materialized`
 // references `auth.users` / `auth.uid()` and re-qualifies extension calls into
 // `extensions.uuid_generate_v4()`. Those objects only exist on the real stack
-// (the `supabase` fixture needs `pg_graphql`/`supabase_vault`, unavailable on
+// (the `supabase-schema` fixture needs `pg_graphql`/`supabase_vault`, unavailable on
 // plain postgres-plus), so this suite runs only where the stack is available
 // (VENDOR_STACK=1 in the vendor workflow). Determinism and the ejected SQL for
 // this direction are covered on plain PG by `materialized-drift.test.ts`.
 const suite = process.env.VENDOR_STACK ? describe : describe.skip;
 
-const supabaseDir = join(portabilityRoot, '..', 'packages', 'supabase');
+const supabaseDir = join(portabilityRoot, '..', 'packages', 'supabase-schema');
 
 let pg: PgTestClient;
 let teardown: () => Promise<void>;

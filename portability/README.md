@@ -31,7 +31,7 @@ portability/
 Subsystem exclusion is **cascade-safe**: `excludeSubsystem` measures the external
 surface of the excluded schema from the reference graph and refuses unless every
 surviving reference has a substitute. `contract.test.ts` measures the real vendored
-fixture (`packages/supabase/deploy/supabase.sql`) and shows the entire external
+fixture (`packages/supabase-schema/deploy/supabase.sql`) and shows the entire external
 contract of its auth subsystem is just:
 
 - one `users` table (a uuid PK, referenced by 3 foreign keys), and

@@ -6,7 +6,7 @@ import { buildSchemaRouter, loadModule } from '@pgpmjs/transform';
 
 // The real vendored fixture this repository tests against.
 const fixtureSql = readFileSync(
-  join(__dirname, '..', '..', '..', '..', 'packages', 'supabase', 'deploy', 'supabase.sql'),
+  join(__dirname, '..', '..', '..', '..', 'packages', 'supabase-schema', 'deploy', 'supabase.sql'),
   'utf8'
 );
 

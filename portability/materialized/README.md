@@ -14,7 +14,7 @@ Both directions are ejected here:
 | Module | Direction | What it proves |
 |---|---|---|
 | `packages/vendor-app-materialized` | Supabase shape → pgpm shape | auth subsystem excluded; FK + RLS rebound onto the generic `app_auth` provider; `extensions.uuid_generate_v4()` de-qualified to a bare `uuid_generate_v4()` from the `uuid-ossp` extension the module installs itself (both provider + extension declared in its control `requires`) |
-| `packages/vendor-app-native-materialized` | pgpm shape → Supabase shape | references routed back onto the native `auth.users` / `auth.uid()`; extension calls re-qualified into the `extensions` schema; deploys on top of the `supabase` fixture module |
+| `packages/vendor-app-native-materialized` | pgpm shape → Supabase shape | references routed back onto the native `auth.users` / `auth.uid()`; extension calls re-qualified into the `extensions` schema; deploys on top of the `supabase-schema` fixture module |
 
 ## Regenerating
 

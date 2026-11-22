@@ -14,7 +14,7 @@ jobs:
       matrix:
         package:
           - hello-world
-          - supabase
+          - supabase-schema
 
     env:
       PGHOST: 127.0.0.1
@@ -93,4 +93,3 @@ jobs:
 
       - name: Test ${{ matrix.package }}
         run: cd ./packages/${{ matrix.package }} && pnpm test
-

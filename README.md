@@ -34,6 +34,9 @@ npx supabase start
 # Install dependencies
 pnpm install
 
+# Install the Supabase platform-schema module
+pgpm install @pgpm/supabase-schema
+
 # Run tests in watch mode
 cd packages/hello-world
 pnpm test:watch
@@ -43,7 +46,7 @@ pnpm test:watch
 
 This is a pgpm workspace combining `pnpm` and `pgpm` for modular Postgres packages:
 
-- **`packages/supabase`** - Supabase-focused SQL, tests, and helpers
+- **`packages/supabase-schema`** - Supabase-focused SQL, tests, and helpers
 - **`packages/hello-world`** - Demo extension showcasing RLS with users/products
 
 ## Testing
@@ -59,7 +62,7 @@ cd packages/hello-world
 pnpm test:watch
 
 # Run Supabase package tests
-cd packages/supabase
+cd packages/supabase-schema
 pnpm test:watch
 ```
 

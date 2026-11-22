@@ -2,7 +2,7 @@
 comment = 'RLS demo extension with users and products tables'
 default_version = '0.0.1'
 module_pathname = '$libdir/hello-world'
-requires = 'plpgsql,pgcrypto,supabase'
+requires = 'plpgsql,pgcrypto,supabase-schema'
 relocatable = false
 superuser = false
   

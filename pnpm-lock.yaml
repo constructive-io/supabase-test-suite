@@ -74,7 +74,7 @@ importers:
 
   packages/hello-world: {}
 
-  packages/supabase: {}
+  packages/supabase-schema: {}
 
   portability/packages/portability-tests:
     dependencies:
