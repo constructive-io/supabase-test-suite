@@ -21,7 +21,7 @@ const suite = process.env.VENDOR_STACK ? describe : describe.skip;
 const packagesDir = join(__dirname, '..', '..');
 const vendorAppDir = join(packagesDir, 'vendor-app');
 const portedSpecDir = join(packagesDir, 'vendor-app-ported');
-const supabaseDir = join(packagesDir, '..', '..', 'packages', 'supabase');
+const supabaseDir = join(packagesDir, '..', '..', 'packages', 'supabase-schema');
 
 let pg: PgTestClient;
 let teardown: () => Promise<void>;

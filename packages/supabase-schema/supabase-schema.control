@@ -1,0 +1,7 @@
+# supabase-schema extension
+comment = 'supabase-schema extension'
+default_version = '0.5.1'
+module_pathname = '$libdir/supabase-schema'
+requires = 'plpgsql'
+relocatable = false
+superuser = false

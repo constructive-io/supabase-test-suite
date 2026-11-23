@@ -75,4 +75,4 @@ CREATE TRIGGER update_users_updated_at
   BEFORE UPDATE
   ON rls_test.pets
   FOR EACH ROW
-  EXECUTE PROCEDURE rls_test.update_updated_at_column();
+  EXECUTE FUNCTION rls_test.update_updated_at_column();

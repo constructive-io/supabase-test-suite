@@ -1,4 +1,4 @@
 %syntax-version=1.0.0
-%project=supabase
-%uri=supabase
+%project=supabase-schema
+%uri=supabase-schema
 supabase 2025-11-01T00:36:02Z launchql <launchql@5b0c196eeb62> # add supabase

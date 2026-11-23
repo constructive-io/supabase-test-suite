@@ -1,5 +1,5 @@
 {
-  "name": "@pgpm/supabase",
+  "name": "@pgpm/supabase-schema",
   "version": "0.5.1",
   "author": "Constructive <developers@constructive.io>",
   "license": "MIT",

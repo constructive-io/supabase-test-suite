@@ -14,13 +14,14 @@ jobs:
       matrix:
         package:
           - hello-world
-          - supabase
+          - supabase-schema
 
     env:
       PGHOST: 127.0.0.1
       PGPORT: 54322
       PGUSER: supabase_admin
       PGPASSWORD: postgres
+      PGPM_VERSION: '5.41.26'
       DATABASE_URL: "postgresql://postgres:postgres@127.0.0.1:54322/postgres"
 
     steps:
@@ -82,7 +83,7 @@ jobs:
         run: pnpm run policy:check
 
       - name: Install pgpm CLI globally
-        run: npm install -g pgpm
+        run: npm install -g pgpm@${{ env.PGPM_VERSION }}
 
       - name: Seed pg and app_user
         run: |
@@ -93,4 +94,3 @@ jobs:
 
       - name: Test ${{ matrix.package }}
         run: cd ./packages/${{ matrix.package }} && pnpm test
-

@@ -123,7 +123,7 @@ export async function materializeReverse(
   const outDir = join(outRoot, REVERSE_MODULE);
   rmSync(outDir, { recursive: true, force: true });
   await materializeApplyModule({ sourceDir: forwardDir, spec: reverseSpec(), outDir });
-  // The reverse module targets Supabase's *native* subsystem (the `supabase`
+  // The reverse module targets Supabase's *native* subsystem (the `supabase-schema`
   // fixture, deployed alongside — not part of this workspace), which owns both
   // `auth` and the `extensions` schema. So it drops the forward source's
   // provider (`auth-provider`) and extension (`uuid-ossp`) requirements.
