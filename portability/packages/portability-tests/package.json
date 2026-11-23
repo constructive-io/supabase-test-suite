@@ -1,6 +1,6 @@
 {
   "name": "@pgpm/portability-tests",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "Constructive <developers@constructive.io>",
   "description": "Cross-shape transpilation tests: subsystem substitution, extension/role routing, bidirectional transforms",
   "private": true,

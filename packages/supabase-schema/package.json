@@ -1,6 +1,6 @@
 {
   "name": "@pgpm/supabase-schema",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "Constructive <developers@constructive.io>",
   "license": "MIT",
   "publishConfig": {
